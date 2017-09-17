@@ -37,7 +37,13 @@ def build_part1_RNN(window_size):
 
 ### Return the text input with only ascii lowercase and the punctuation given below included.
 def cleaned_text(text):
-    text = re.sub(r'[^a-zA-Z\-!,\.\:\;\?\s]+', '', text)
+    text = re.sub(r'[^a-zA-Z\!,\.\:\;\?\s]+', '', text)
+    text = re.sub(r'-', '', text)
+    text = re.sub(r'\n', '', text)
+    text = re.sub(r'\r', '', text)
+    text = re.sub(r'\f', '', text)
+    text = re.sub(r'\u000b', '', text)
+    text = re.sub(r'\t', '', text)
     text = re.sub(r'--', '', text)
     text = re.sub(r'\d\.\d', '', text)   # examples like 1.e.2
     text = re.sub(r'\.e\.\.', '', text)
@@ -58,8 +64,8 @@ def window_transform_text(text, window_size, step_size):
         outputs.append(text[i+window_size])
 
     # reshape each 
-    inputs = np.asarray(inputs)
-    outputs = np.asarray(outputs)
+    #inputs = np.asarray(inputs)
+    #outputs = np.asarray(outputs)
 
     return inputs,outputs
 
